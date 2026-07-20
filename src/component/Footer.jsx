@@ -48,11 +48,13 @@ const Footer = () => {
           </div>
           <div className="h-59 w-31.25 text-left">
               <h4 className="font-poppins text-[20px] pb-2">Account</h4>
-              <ul><li className="text-[14px] pb-1">My Accounts</li></ul>
-              <ul><li className="text-[14px] pb-1">Login / Register</li></ul>
-              <ul><li className="text-[14px] pb-1">Cart</li></ul>
-              <ul><li className="text-[14px] pb-1">Wishlist</li></ul>
-              <ul><li className="text-[14px] pb-1">Shop</li></ul>
+              <ul className="cursor-pointer" >
+                <li className="text-[14px] pb-1">My Accounts</li>
+                <li className="text-[14px] pb-1">Login / Register</li>
+                <li className="text-[14px] pb-1">Cart</li>
+                <li className="text-[14px] pb-1">Wishlist</li>
+                <li className="text-[14px] pb-1">Shop</li>
+              </ul>
           </div>
           <div className="h-59 w-31.25 text-left">
               <h4 className="font-poppins text-[20px] pb-2">Quick Link</h4>
@@ -70,7 +72,7 @@ const Footer = () => {
        
     </Container>
     <hr className="mt-35 border-gray-700" />
-    <p className="mt-5 text-gray-700 font-poppins font-[16px]"> @ Copyright nourish 2026. All right reserved</p>
+    <p className="mt-5 text-gray-700 font-poppins font-[16px]"> @ Copyright Jiaul Hoque. All right reserved</p>
     </div>
   )
 }
