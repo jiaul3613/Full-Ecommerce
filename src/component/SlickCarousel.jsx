@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import heroimg from '../assets/heroimg.png'
 
 function TestCarousel() {
   const settings = {
@@ -13,14 +14,20 @@ function TestCarousel() {
   };
 
   return (
-    <Slider {...settings}>
+    <Slider.default {...settings}>
       <div>
-        <h3>Slide 1</h3>
+        <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" />
       </div>
       <div>
-        <h3>Slide 2</h3>
+        <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" />
       </div>
-    </Slider>
+      <div>
+        <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" />
+      </div>
+      <div>
+        <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" />
+      </div>
+    </Slider.default>
   );
 }
 

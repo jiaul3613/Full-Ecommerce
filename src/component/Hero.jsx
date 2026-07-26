@@ -1,7 +1,7 @@
 
 import Container from './Container';
-//import TestCarousel from './SlickCarousel';
-import heroimg from '../assets/heroimg.png'
+import SlickCarousel from './SlickCarousel';
+
 
 
 const Hero = () => {
@@ -22,8 +22,8 @@ const Hero = () => {
                     </ul>
                 </div>
                 <div className='w-[80%]'>
-                    {/* <TestCarousel /> */}
-                    <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" />
+                   <SlickCarousel />
+                    {/* <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" /> */}
                    
                 </div>
             </div>
