@@ -16,16 +16,16 @@ function TestCarousel() {
   return (
     <Slider.default {...settings}>
       <div>
-        <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" />
+        <img className='w-223 h-86 pl-30 mt-15 ' src={heroimg} alt="" />
       </div>
       <div>
-        <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" />
+        <img className='w-223 h-86 pl-30 mt-15 ' src={heroimg} alt="" />
       </div>
       <div>
-        <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" />
+        <img className='w-223 h-86 pl-30 mt-15 ' src={heroimg} alt="" />
       </div>
       <div>
-        <img className='w-223 h-86 pl-10 mt-10 ' src={heroimg} alt="" />
+        <img className='w-223 h-86 pl-30 mt-15 ' src={heroimg} alt="" />
       </div>
     </Slider.default>
   );

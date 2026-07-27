@@ -1,3 +1,4 @@
+import Flash from "../component/Flash"
 import Hero from "../component/Hero"
 import Today from "../component/Today"
 
@@ -9,6 +10,7 @@ const Home = () => {
     <div>
       <Hero />
       <Today />
+      <Flash />
     </div>
   )
 }
