@@ -21,3 +21,11 @@
   --color-primary: #EF4444;
 }
 
+
+.categoryItem:hover .icon svg g path {
+  stroke:white;
+}
+
+.categoryItem:hover .icon svg g line {
+  stroke:white;
+}
