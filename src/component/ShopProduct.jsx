@@ -25,6 +25,18 @@ const ShopProduct = () => {
   return (
     <div>
       <Container>
+        <div className='flex justify-between items-center pt-10 pb-2'> 
+          <p>home / shop </p>
+          <div className='flex gap-2 items-center'>
+          <label for="show">Show :</label>
+            <select className='w-15 h-6 border text-center rounded-sm' name="show" >
+              <option value="6">6</option>
+              <option value="9">9</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+
+        </div>
         <div className="flex">
           <div className="w-[20%] pt-5 pb-2">
             <ul className="flex flex-col gap-y-3 text-sm text-black leading-loose font-poppins font-[16px]">
@@ -38,7 +50,7 @@ const ShopProduct = () => {
               <li>Groceries &</li>
             </ul>
           </div>
-          <div className="w-[80%] flex flex-wrap gap-4 pt-5">
+          <div className="w-[80%] flex flex-wrap gap-8 pt-5">
             {loading ? (
               <p>Loading products...</p>
             ) : (
