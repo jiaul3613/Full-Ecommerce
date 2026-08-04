@@ -6,12 +6,15 @@ const ShopProduct = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Category filter state ('all' means show everything)
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
   useEffect(() => {
-    fetch('https://dummyjson.com/products')
+    fetch('https://dummyjson.com/products?limit=100') // Fetches more products so categories aren't limited
       .then((res) => res.json())
       .then((data) => {
         setProducts(data.products || []);
@@ -23,17 +26,31 @@ const ShopProduct = () => {
       });
   }, []);
 
+  // 1. Extract Unique Categories from all products
+  const uniqueCategories = ['all', ...new Set(products.map((item) => item.category))];
+
+  // 2. Filter products based on selected category
+  const filteredProducts = selectedCategory === 'all' 
+    ? products 
+    : products.filter((item) => item.category === selectedCategory);
+
+  // 3. Handle Category Selection
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1); // Reset to page 1 when category changes
+  };
+
   // Handle dropdown change for items per page
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(Number(e.target.value));
-    setCurrentPage(1); // Reset to first page when changing limit
+    setCurrentPage(1); 
   };
 
-  // Pagination Calculations
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  // 4. Pagination Calculations (using filteredProducts instead of products)
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -44,7 +61,9 @@ const ShopProduct = () => {
       <Container>
         {/* Header section */}
         <div className='flex justify-between items-center pt-10 pb-2'> 
-          <p>home / shop</p>
+          <p className="capitalize">
+            home / shop {selectedCategory !== 'all' && `/ ${selectedCategory}`}
+          </p>
           <div className='flex gap-2 items-center'>
             <label htmlFor="show">Show :</label>
             <select 
@@ -62,18 +81,24 @@ const ShopProduct = () => {
         </div>
 
         {/* Content Section */}
-        <div className="flex">
+        <div className="flex gap-x-6">
           {/* Sidebar */}
           <div className="w-[20%] pt-5 pb-2">
-            <ul className="flex flex-col gap-y-3 text-sm text-black leading-loose font-poppins font-[16px]">
-              <li>Woman’s Fashion</li>
-              <li>Men’s Fashion</li>
-              <li>Electronics</li>
-              <li>Home & Lifestyle</li>
-              <li>Medicine</li>
-              <li>Sports & Outdoor</li>
-              <li>Health & Beauty</li>
-              <li>Groceries &</li>
+            <h3 className="font-semibold text-base mb-3">Categories</h3>
+            <ul className="flex flex-col gap-y-3 text-sm text-black leading-loose font-poppins">
+              {uniqueCategories.map((cat) => (
+                <li 
+                  key={cat} 
+                  onClick={() => handleCategorySelect(cat)}
+                  className={`capitalize cursor-pointer transition-colors ${
+                    selectedCategory === cat 
+                      ? 'font-bold text-red-500 underline' 
+                      : 'hover:text-gray-600'
+                  }`}
+                >
+                  {cat === 'all' ? 'All Products' : cat}
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -82,7 +107,7 @@ const ShopProduct = () => {
             <div className="flex flex-wrap gap-8">
               {loading ? (
                 <p>Loading products...</p>
-              ) : (
+              ) : currentProducts.length > 0 ? (
                 currentProducts.map((item) => (
                   <Card 
                     key={item.id} 
@@ -95,6 +120,8 @@ const ShopProduct = () => {
                     rating={item.rating} 
                   />
                 ))
+              ) : (
+                <p>No products found in this category.</p>
               )}
             </div>
 
