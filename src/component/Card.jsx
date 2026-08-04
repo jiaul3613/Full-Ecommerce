@@ -10,7 +10,7 @@ const Card = ({ img1, name, np, op, dis, rating = 5, reviewCount = 88 }) => {
       <div className='relative overflow-hidden bg-[#F5F5F5] rounded-sm'>
         {dis && (
           <span className='px-4 py-2 bg-primary rounded-sm text-xs text-white absolute left-4 top-4 z-10'>
-            {dis}
+            {dis} %
           </span>
         )}
         

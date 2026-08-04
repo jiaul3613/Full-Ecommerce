@@ -1,4 +1,5 @@
 import Container from './Container';
+import { NavLink } from "react-router";
 
 const Header = () => {
   return (
@@ -9,7 +10,7 @@ const Header = () => {
         <div></div>
           <p className='font-poppins font-[14px]'>
             Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! 
-            <span className="font-semibold underline ml-4 cursor-pointer">ShopNow</span>
+            <NavLink to="/product"> <span className="font-semibold underline ml-4 cursor-pointer">ShopNow</span></NavLink>
           </p>
         
           <select  className='bg-black text-white font-poppins font-[14px]'>

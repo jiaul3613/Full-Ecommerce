@@ -5,6 +5,7 @@ import Contact from "./pages/Contact"
 import Root from "./RootLayout"; 
 import About from "./pages/About";
 import SingUp from "./pages/SingUp";
+import ShopProduct from "./component/ShopProduct";
 
 
 export const router = createBrowserRouter([
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
           {path: "/contact", Component: Contact},
           {path: "/about", Component: About},
           {path: "/singup", Component: SingUp},
+          {path: "/product", Component: ShopProduct},
         ],
       },
 ]);
