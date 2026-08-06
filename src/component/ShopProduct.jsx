@@ -8,6 +8,7 @@ const ShopProduct = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const dispatch = useDispatch();
     fetch('https://dummyjson.com/products')
       .then((res) => res.json())
       .then((data) => {
