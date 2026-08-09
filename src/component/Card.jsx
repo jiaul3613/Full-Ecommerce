@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Rate } from 'antd';
 import { CiHeart } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
+import {  useDispatch } from 'react-redux';
+//import { useNavigate } from 'react-router';
+import { CartReducer } from '../slicer/Product';
 
-const Card = ({ img1, name, np, op, dis, rating = 5, reviewCount = 88 }) => {
+const Card = ({ img1, name, np, op, dis, rating = 5, reviewCount = 88, productdtl }) => {
+
+//  let navigate = useNavigate();
+//  const heldleNavigate = () => {}
+//  navigate(`/productdtl/${id}` )};
+
+let dispatch=useDispatch();
+
+const handlecard = () => { 
+dispatch(CartReducer(productdtl))
+
+// console.log(productdtl);
+
+ }
+
+
   return (
     <div className='w-67.5 group mt-10'>
       {/* Product Image & Overlay Section */}
@@ -37,7 +55,7 @@ const Card = ({ img1, name, np, op, dis, rating = 5, reviewCount = 88 }) => {
         </div>
 
         {/* Add to Cart Button */}
-        <button 
+        <button  onClick={handlecard}
           type="button"
           className='bg-black text-white absolute group-hover:bottom-0 -bottom-11 left-0 font-medium w-full py-2.25 duration-200 ease-linear cursor-pointer text-sm rounded-b-sm'
         >

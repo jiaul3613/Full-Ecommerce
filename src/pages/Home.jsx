@@ -12,7 +12,7 @@ import Category from "../component/Category"
 import Music from "../component/Music"
 import NewArrival from "../component/NewArrival"
 import Product from "../component/Product"
-import  Counter  from './../features/counter/Counter';
+//import  Counter  from './../features/counter/Counter';
 
 
 
@@ -37,7 +37,7 @@ const Home = () => {
         <Music/>
         <Product />
         <NewArrival/>
-        <Counter />
+        {/* <Counter /> */}
       </Container>
     </div>
   )

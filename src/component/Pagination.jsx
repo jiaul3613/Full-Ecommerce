@@ -11,7 +11,7 @@ const ShopProduct = () => {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   useEffect(() => {
     fetch('https://dummyjson.com/products?limit=100') // Fetches more products so categories aren't limited
@@ -111,6 +111,7 @@ const ShopProduct = () => {
                 currentProducts.map((item) => (
                   <Card 
                     key={item.id} 
+                    productdtl={item}
                     img1={item.thumbnail} 
                     op={item.price} 
                     dis={item.discountPercentage} 

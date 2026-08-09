@@ -5,10 +5,26 @@ import { CiSearch } from "react-icons/ci";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { FaRegHeart } from "react-icons/fa";
 import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 
 const NavBar = () => {
   const [menu,setMenu]=useState('home')
+
+  const navigate = useNavigate();
+  
+  const haldcallCart=()=>{
+    navigate('/cartpage');
+  }
+
+  //const data = useSelector((state) => state.Products.Cart);
+
+  const data = useSelector((state) => state.cart.Cart);
+  
+
+  console.log(data);
+
   return (
     <div >
       <Container>
@@ -30,7 +46,10 @@ const NavBar = () => {
 
               <div className="flex items-center gap-5">
                 <FaRegHeart className="w-8 h-8" />
-                <HiOutlineShoppingCart className="w-8 h-8" />
+                <div  onClick={haldcallCart}  className="relative ">
+                  <HiOutlineShoppingCart className="w-8 h-8" />
+                  <div className="size-6 bg-red-700 text-white rounded-full flex justify-center items-center absolute -top-4 -right-4 text-xs">{data.length}</div>
+                </div>
               </div>
           </div>
         </div>
