@@ -4,6 +4,7 @@ import { VscArrowSmallLeft } from "react-icons/vsc";
 import { VscArrowSmallRight } from "react-icons/vsc";
 import img1 from '../assets/Frame604.png'
 import Card from './Card';
+//import { CartReducer } from '../slicer/Product';
 
 const Product = () => {
   return (

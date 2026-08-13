@@ -17,7 +17,7 @@ const CartItem = ({title,price,img}) => {
   return (
     <div>
       <Container>
-        <div className="grid grid-cols-4 gap-6 shadow-md p-3 items-center mb-2">
+        <div className="grid grid-cols-4 gap-6 shadow-md p-2 items-center mb-2">
           <div className="flex items-center gap-5">
             <img className="w-13.5 h-13.5" src={img} alt="" />
             <p>{title.slice(0, 25)}</p>

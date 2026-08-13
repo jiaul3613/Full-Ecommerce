@@ -1,21 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const productSlice = createSlice({
-  name: 'product',
+  name: 'cart',
   initialState: {
-    value: [],
-    Cart: [],
+    ProductDtl: null,
+    Cart: localStorage.getItem('cart') 
+      ? JSON.parse(localStorage.getItem('cart')) 
+      : [],
   },
   reducers: {
-    productReducer: (state, action) => {
-      state.value = action.payload;
+    setProductDtl: (state, action) => {
+      state.ProductDtl = action.payload;
     }, 
-    // RTK uses Immer under the hood, so you can push directly:
-    CartReducer: (state, action) => {
+    addToCart: (state, action) => {
       state.Cart.push(action.payload);
+      localStorage.setItem('cart', JSON.stringify(state.Cart));
     },   
   }
 });
 
-export const { productReducer, CartReducer } = productSlice.actions;
+// 🔑 Option A: Export `addToCart` AND alias it as `CartReducer` so both work:
+export const { 
+  setProductDtl, 
+  addToCart, 
+  addToCart: CartReducer 
+} = productSlice.actions;
+
 export default productSlice.reducer;

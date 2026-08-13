@@ -1,15 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-//import counterReducer from '../features/counterSlice';
-import CartReducer from '../slicer/Product';
+import cartReducer from '../slicer/Product'; // Default export is the slice reducer
 
 const store = configureStore({
   reducer: {
-    cart: CartReducer, 
-    
+    cart: cartReducer, // State will be available as state.cart
   }
 });
 
-
 export default store;
-
-

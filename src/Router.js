@@ -8,6 +8,7 @@ import SingUp from "./pages/SingUp";
 //import ShopProduct from "./component/ShopProduct";
 import Pagination from "./component/Pagination";
 import CartPage from "./pages/CartPage";
+import ProductDtl from "./component/ProductDtl";
 
 
 export const router = createBrowserRouter([
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
           {path: "/singup", Component: SingUp},
           {path: "/product", Component: Pagination},
           {path: "/cartpage", Component: CartPage},
+          {path: "/productdetail/:id?", Component: ProductDtl},
         ],
       },
 ]);

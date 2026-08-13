@@ -4,7 +4,9 @@ import { CiHeart } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
 import {  useDispatch } from 'react-redux';
 //import { useNavigate } from 'react-router';
+//import { CartReducer } from '../slicer/Product';
 import { CartReducer } from '../slicer/Product';
+import { useNavigate } from 'react-router';
 
 const Card = ({ img1, name, np, op, dis, rating = 5, reviewCount = 88, productdtl }) => {
 
@@ -15,11 +17,15 @@ const Card = ({ img1, name, np, op, dis, rating = 5, reviewCount = 88, productdt
 let dispatch=useDispatch();
 
 const handlecard = () => { 
-dispatch(CartReducer(productdtl))
-
-// console.log(productdtl);
+dispatch(CartReducer (productdtl))
 
  }
+const navigate = useNavigate();
+  
+const handledtl=()=>{
+  navigate('/productdetail');
+}
+
 
 
   return (
@@ -31,12 +37,14 @@ dispatch(CartReducer(productdtl))
             {dis} %
           </span>
         )}
-        
+        <div onClick={handledtl} className='cursor-pointer'>
         <img 
           className="h-62.5 w-full object-contain p-4 mix-blend-multiply" 
           src={img1} 
           alt={name} 
         /> 
+        </div>
+      
 
         {/* Action Icons */}
         <div className='absolute top-4 right-4 space-y-2 z-10'>
