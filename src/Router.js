@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
           {path: "/singup", Component: SingUp},
           {path: "/product", Component: Pagination},
           {path: "/cartpage", Component: CartPage},
-          {path: "/productdetail/:id?", Component: ProductDtl},
+          { path: "/productdetail/:id?", Component: ProductDtl },
         ],
       },
 ]);

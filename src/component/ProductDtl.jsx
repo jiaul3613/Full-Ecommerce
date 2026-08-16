@@ -3,17 +3,21 @@ import Container from './Container';
 import defaultMainImg from '../assets/Frame894.png';
 import defaultThumbImg from '../assets/Frame897.png';
 import { useSelector, useDispatch } from 'react-redux';
-import { setProductDtl } from '../slicer/Product'; 
 import { useParams } from 'react-router';
 
 const ProductDtl = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  
+  // 1. Add state to hold fetched API product details
+  const [apiProduct, setApiProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch product by ID if an ID parameter is provided
+  // Read current product from Redux state (if any)
+  const reduxProduct = useSelector((state) => state.cart?.ProductDtl);
+
   useEffect(() => {
-    if (!id) {
+    if (!id || id === "[object Object]") {
       setLoading(false);
       return;
     }
@@ -22,19 +26,16 @@ const ProductDtl = () => {
     fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        dispatch(setProductDtl(data));
-        setLoading(false);
+        // 2. Store fetched API product in state
        
+        setApiProduct(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.error('Failed to fetch product:', err);
         setLoading(false);
       });
   }, [id, dispatch]);
-
-  // Read current product directly from Redux state
-  const product = useSelector((state) => state.cart?.ProductDtl);
-  console.log('Current Product in Redux:', product);
 
   if (loading) {
     return (
@@ -43,14 +44,16 @@ const ProductDtl = () => {
       </div>
     );
   }
+ console.log(apiProduct);
+  // 3. Prioritize API product -> Redux product -> Fallback default
+  const product = apiProduct || reduxProduct;
 
-  // Fallback defaults
   const title = product?.title || 'Havic HV G-92 Gamepad';
   const price = typeof product?.price === 'number' ? product.price : 192.0;
   const description = product?.description || 'PlayStation 5 Controller featuring haptic feedback, dynamic adaptive triggers, and a built-in microphone.';
   const mainImage = product?.thumbnail || product?.images?.[0] || product?.image || defaultMainImg;
   
-  // Use API images if available, otherwise fallback
+  // Use API/Redux thumbnails if available, otherwise fallback
   const thumbnails = product?.images?.length 
     ? product.images.slice(0, 4) 
     : [defaultThumbImg, defaultThumbImg, defaultThumbImg, defaultThumbImg];

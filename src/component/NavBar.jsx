@@ -23,7 +23,7 @@ const NavBar = () => {
   const data = useSelector((state) => state.cart.Cart);
   
 
-  console.log(data);
+  //console.log(data);
 
   return (
     <div >

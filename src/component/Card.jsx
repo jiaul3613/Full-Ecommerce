@@ -3,41 +3,42 @@ import { Rate } from 'antd';
 import { CiHeart } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
 import {  useDispatch } from 'react-redux';
-//import { useNavigate } from 'react-router';
-//import { CartReducer } from '../slicer/Product';
-import { CartReducer } from '../slicer/Product';
+import { cardReducer } from '../slicer/Product';
 import { useNavigate } from 'react-router';
+import { ToastContainer , toast } from 'react-toastify';
 
 const Card = ({ img1, name, np, op, dis, rating = 5, reviewCount = 88, productdtl }) => {
 
-//  let navigate = useNavigate();
-//  const heldleNavigate = () => {}
-//  navigate(`/productdtl/${id}` )};
+const notify =()=>toast('Successfully add to cart')
 
 let dispatch=useDispatch();
 
-const handlecard = () => { 
-dispatch(CartReducer (productdtl))
+//console.log(productdtl);
 
- }
+const handlecard = () => { 
+dispatch(cardReducer(productdtl))
+notify()
+
+}
 const navigate = useNavigate();
   
-const handledtl=()=>{
-  navigate('/productdetail');
-}
+const handledtl = (id) => {
+  if (!id) return;
+  navigate(`/productdetail/${id}`);
+};
 
 
 
   return (
     <div className='w-67.5 group mt-10'>
-      {/* Product Image & Overlay Section */}
+      <ToastContainer/>
       <div className='relative overflow-hidden bg-[#F5F5F5] rounded-sm'>
         {dis && (
           <span className='px-4 py-2 bg-primary rounded-sm text-xs text-white absolute left-4 top-4 z-10'>
             {dis} %
           </span>
         )}
-        <div onClick={handledtl} className='cursor-pointer'>
+        <div onClick={() => handledtl(productdtl.id)} className='cursor-pointer'>
         <img 
           className="h-62.5 w-full object-contain p-4 mix-blend-multiply" 
           src={img1} 
