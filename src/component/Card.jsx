@@ -1,51 +1,49 @@
-import React, { use } from 'react';
+import React from 'react';
 import { Rate } from 'antd';
 import { CiHeart } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { cardReducer } from '../slicer/Product';
 import { useNavigate } from 'react-router';
-import { ToastContainer , toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
-const Card = ({ img1, name, np, op, dis, rating = 5, reviewCount = 88, productdtl }) => {
+const Card = ({ img1, title, np, op, dis, rating = 5, reviewCount = 88, productdtl }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-const notify =()=>toast('Successfully add to cart')
+  const notify = () => toast.success('Successfully added to cart');
 
-let dispatch=useDispatch();
+  const handlecard = () => { 
+    if (!productdtl) {
+      console.error("No product detail provided to Card");
+      return;
+    }
+    dispatch(cardReducer(productdtl));
+    notify();
+  };
 
-//console.log(productdtl);
-
-const handlecard = () => { 
-dispatch(cardReducer(productdtl))
-notify()
-
-}
-const navigate = useNavigate();
-  
-const handledtl = (id) => {
-  if (!id) return;
-  navigate(`/productdetail/${id}`);
-};
-
-
+  const handledtl = () => {
+    if (productdtl?.id) {
+      navigate(`/productdetail/${productdtl.id}`);
+    }
+  };
 
   return (
     <div className='w-67.5 group mt-10'>
-      <ToastContainer/>
       <div className='relative overflow-hidden bg-[#F5F5F5] rounded-sm'>
         {dis && (
           <span className='px-4 py-2 bg-primary rounded-sm text-xs text-white absolute left-4 top-4 z-10'>
-            {dis} %
+            {dis}%
           </span>
         )}
-        <div onClick={() => handledtl(productdtl.id)} className='cursor-pointer'>
-        <img 
-          className="h-62.5 w-full object-contain p-4 mix-blend-multiply" 
-          src={img1} 
-          alt={name} 
-        /> 
+        
+        <div onClick={handledtl} className='cursor-pointer'>
+          <img 
+            className="h-62.5 w-full object-contain p-4 mix-blend-multiply" 
+            src={img1} 
+            alt={title} 
+          /> 
         </div>
-      
 
         {/* Action Icons */}
         <div className='absolute top-4 right-4 space-y-2 z-10'>
@@ -64,7 +62,8 @@ const handledtl = (id) => {
         </div>
 
         {/* Add to Cart Button */}
-        <button  onClick={handlecard}
+        <button  
+          onClick={handlecard}
           type="button"
           className='bg-black text-white absolute group-hover:bottom-0 -bottom-11 left-0 font-medium w-full py-2.25 duration-200 ease-linear cursor-pointer text-sm rounded-b-sm'
         >
@@ -73,7 +72,7 @@ const handledtl = (id) => {
       </div>
         
       {/* Product Information */}
-      <h3 className='mt-4 mb-2 font-medium text-base truncate'>{name}</h3>
+      <h3 className='mt-4 mb-2 font-medium text-base truncate'>{title}</h3>
       
       {/* Price */}
       <div className='flex items-center gap-3 mb-2'>

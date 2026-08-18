@@ -1,7 +1,7 @@
 import React from 'react'
 import img1 from '../assets/Frame575.png'
 
-const Cart = ({ img, name, price, dis, oldp }) => {
+const Cart = ({ img, title, price, dis, oldp }) => {
   return (
     <div className="w-67.5">
       {/* Container with relative position */}
@@ -21,7 +21,7 @@ const Cart = ({ img, name, price, dis, oldp }) => {
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <img 
             src={img} 
-            alt={name} 
+            alt={title} 
             className="max-h-full max-w-full object-contain" 
           />
         </div>
@@ -29,7 +29,7 @@ const Cart = ({ img, name, price, dis, oldp }) => {
       </div>
 
       {/* Product Details */}
-      <p className="py-2 font-medium">{name}</p>
+      <p className="py-2 font-medium">{title}</p>
       <div className="flex gap-3">
         <p className="text-red-500 font-semibold">${price}</p>
         {oldp && <p className="text-gray-400 line-through">${oldp}</p>}

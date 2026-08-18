@@ -23,14 +23,14 @@ const Product = () => {
             </div> 
 
             <div className='grid grid-cols-4 gap-6'>
-            <Card  img1={img1} name='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
-            <Card  img1={img1} name='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
-            <Card  img1={img1} name='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
-            <Card  img1={img1} name='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
-            <Card  img1={img1} name='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
-            <Card  img1={img1} name='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
-            <Card  img1={img1} name='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
-            <Card  img1={img1} name='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
+            <Card  img1={img1} title='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
+            <Card  img1={img1} title='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
+            <Card  img1={img1} title='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
+            <Card  img1={img1} title='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
+            <Card  img1={img1} title='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
+            <Card  img1={img1} title='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
+            <Card  img1={img1} title='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
+            <Card  img1={img1} title='The north coat' np={260} op={350}  rating={5} reviewCount={65} />
             </div>
                         
         </Container>

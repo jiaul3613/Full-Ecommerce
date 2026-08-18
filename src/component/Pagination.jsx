@@ -116,7 +116,7 @@ const ShopProduct = () => {
                     op={item.price} 
                     dis={item.discountPercentage} 
                     np={(item.price - (item.price * (item.discountPercentage / 100))).toFixed(2)} 
-                    name={item.title} 
+                    title={item.title} 
                     reviewCount={item.reviews?.length || 0} 
                     rating={item.rating} 
                   />

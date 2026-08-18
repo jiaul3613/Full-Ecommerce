@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Container from './Container';
 import Card from './Card';
+import { useDispatch } from 'react-redux';
 
 
 const ShopProduct = () => {
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    const dispatch = useDispatch();
-    fetch('https://dummyjson.com/products')
+    fetch('https://dummyjson.com/products?limit=100') // Fetches more products so categories aren't limited
       .then((res) => res.json())
       .then((data) => {
-        // dummyjson returns an object with a `products` array property: { products: [...], total: 30, ... }
         setProducts(data.products || []);
         setLoading(false);
       })
@@ -20,9 +22,8 @@ const ShopProduct = () => {
         console.error('Failed to fetch products:', err);
         setLoading(false);
       });
-  }, []); // Empty dependency array ensures this runs once when the component mounts
- 
- console.log(products);
+  }, []);
+
   return (
     <div>
       <Container>
@@ -56,7 +57,17 @@ const ShopProduct = () => {
               <p>Loading products...</p>
             ) : (
               products.map((item) => (
-                <Card key={item.id} img1={item.thumbnail} op={item.price} dis={item.discountPercentage} np={(item.price-(item.price*(item.discountPercentage/100))).toFixed(2)} name = {item.title} reviewCount={item.reviews.length} rating={item.rating} />
+                <Card 
+                    key={item.id} 
+                    productdtl={item}
+                    img1={item.thumbnail} 
+                    op={item.price} 
+                    dis={item.discountPercentage} 
+                    np={(item.price - (item.price * (item.discountPercentage / 100))).toFixed(2)} 
+                    title={item.title} 
+                    reviewCount={item.reviews?.length || 0} 
+                    rating={item.rating} 
+                  />
               ))
             )}
           </div>
