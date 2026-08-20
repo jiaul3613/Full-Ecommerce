@@ -1,85 +1,107 @@
-//import Flash from "../component/Flash"
-import Hero from "../component/Hero"
-import Today from "../component/Today"
-import Card from '../component/Card'
-import Container from "../component/Container"
-import img1 from '../assets/Frame571.png'
-import img2 from '../assets/Frame570.png'
-import img3 from '../assets/Frame614.png'
-import img4 from '../assets/Frame613.png'
-import BestSale from "../component/BestSale"
-import Category from "../component/Category"
-import Music from "../component/Music"
-import NewArrival from "../component/NewArrival"
-import Product from "../component/Product"
-//import  Counter  from './../features/counter/Counter';
-import { useState, useEffect } from "react"
-import { useDispatch } from 'react-redux';
-
-
-
-
-
+import { useState, useEffect, useRef } from "react";
+import Container from "../component/Container";
+import Hero from "../component/Hero";
+import Today from "../component/Today";
+import Card from "../component/Card";
+import Category from "../component/Category";
+import BestSale from "../component/BestSale";
+import Music from "../component/Music";
+import NewArrival from "../component/NewArrival";
+import Product from "../component/Product";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 const Home = () => {
-
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const dispatch = useDispatch();
+  // Ref to target the scrollable products container
+  const scrollContainerRef = useRef(null);
 
-    useEffect(() => {
-      fetch('https://dummyjson.com/products?limit=100') // Fetches more products so categories aren't limited
-        .then((res) => res.json())
-        .then((data) => {
-          setProducts(data.products || []);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error('Failed to fetch products:', err);
-          setLoading(false);
-        });
-    }, []);
- 
+  useEffect(() => {
+    fetch("https://dummyjson.com/products?limit=100")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data.products || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch products:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  // Handler to scroll left or right
+  const handleScroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = scrollContainerRef.current.clientWidth; // Scroll by full container width
+      scrollContainerRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <div>
       <Container>
         <Hero />
-        <Today />
+        
+        {/* Section Header with Left & Right Navigation Arrows */}
+        <div className="flex justify-between items-center my-4">
 
-        <div className="grid grid-cols-4">
-       {products.map((item) => (
-                <Card 
-                key={item.id} 
-                productdtl={item}
-                img1={item.thumbnail} 
-                op={item.price} 
-                dis={item.discountPercentage} 
-                np={(item.price - (item.price * (item.discountPercentage / 100))).toFixed(2)} 
-                title={item.title} 
-                reviewCount={item.reviews?.length || 0} 
-                rating={item.rating} 
-              />
-              ))}
-       
+          <Today />
 
-        {/* <Card  img1={img1} name='HAVIT HV-G92 Gamepad' np={120} op={160} dis={'-40%'} rating={5} reviewCount={88} />
-        <Card  img1={img2} name='AK-900 Wired Keyboard' np={960} op={1160} dis={'-35%'} rating={4.5} reviewCount={75} />
-        <Card  img1={img3} name='S-Series Comfort Chair' np={375} op={400} dis={'-20%'} rating={4.5} reviewCount={99} />
-        <Card  img1={img4} name='IPS LCD Gaming Monitor' np={370} op={400} dis={'-30%'} rating={5} reviewCount={99} />
-        <Card  img1={img4} name='IPS LCD Gaming Monitor' np={370} op={400} dis={'-30%'} rating={5} reviewCount={99} /> */}
-
+          <div className="flex gap-2 ">
+            <button
+              onClick={() => handleScroll("left")}
+              className="p-1 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+              aria-label="Scroll left"
+            >
+              <FaArrowLeft className="text-lg text-black" />
+            </button>
+            <button
+              onClick={() => handleScroll("right")}
+              className="p-1 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+              aria-label="Scroll right"
+            >
+              <FaArrowRight className="text-lg text-black" />
+            </button>
+          </div>
         </div>
+
+        {/* Scrollable Container showing 4 cards per row */}
+        <div
+          ref={scrollContainerRef}
+          className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth py-2"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {products.map((item) => (
+            <div key={item.id} className="w-[calc((100%-48px)/3)] shrink-0 ">
+              <Card
+                productdtl={item}
+                img1={item.thumbnail}
+                op={item.price}
+                dis={item.discountPercentage}
+                np={(
+                  item.price -
+                  item.price * (item.discountPercentage / 100)
+                ).toFixed(2)}
+                title={item.title}
+                reviewCount={item.reviews?.length || 0}
+                rating={item.rating}
+              />
+            </div>
+          ))}
+        </div>
+
         <Category />
         <BestSale />
-        <Music/>
+        <Music />
         <Product />
-        <NewArrival/>
-        {/* <Counter /> */}
+        <NewArrival />
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

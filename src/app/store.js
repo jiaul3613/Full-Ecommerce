@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cartReducer from '../slicer/Product'; // Default export is the slice reducer
+import productReducer from '../slicer/Product';
 
 const store = configureStore({
   reducer: {
-    cart: cartReducer, // State will be available as state.cart
+    shop: productReducer, // Access via state.shop.products, state.shop.cart, state.shop.fav
   }
 });
 

@@ -37,7 +37,7 @@ const Today = () => {
   }, []);
 
   return (
-    <div className='mt-20'>
+    <div className='mt-10 '>
       <Container>
         {/* Category Header */}
         <div className='flex items-center gap-4'>

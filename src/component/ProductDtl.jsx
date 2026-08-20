@@ -44,7 +44,7 @@ const ProductDtl = () => {
       </div>
     );
   }
- console.log(apiProduct);
+ //console.log(apiProduct);
   // 3. Prioritize API product -> Redux product -> Fallback default
   const product = apiProduct || reduxProduct;
 

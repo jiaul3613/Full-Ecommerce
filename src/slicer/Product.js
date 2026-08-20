@@ -3,26 +3,36 @@ import { createSlice } from '@reduxjs/toolkit';
 export const productSlice = createSlice({
   name: 'products',
   initialState: {
-    value: [],
-    Cart: localStorage.getItem('Cart') ? JSON.parse(localStorage.getItem('Cart')) : []
+    products: [],
+    cart: localStorage.getItem('Cart') ? JSON.parse(localStorage.getItem('Cart')) : [],
+    fav: localStorage.getItem('Fav') ? JSON.parse(localStorage.getItem('Fav')) : [],
   },
 
   reducers: {
-    productReducer: (state, action) => {
-      state.value = action.payload;
+    setProducts: (state, action) => {
+      state.products = action.payload;
     }, 
-    cardReducer: (state, action) => {
-      let exist = state.Cart.find((item)=>item.id== action.payload.id)
-      if (!exist){
-        state.Cart= [...state.Cart, action.payload]
-        localStorage.setItem('Cart', JSON.stringify(state.Cart))
+    addToCart: (state, action) => {
+      const exists = state.cart.some((item) => item.id === action.payload.id);
+      if (!exists) {
+        state.cart.push(action.payload);
+        localStorage.setItem('Cart', JSON.stringify(state.cart));
       }
     },
-    } 
-
+    removeFromCart: (state, action) => {
+      state.cart = state.cart.filter((item) => item.id !== action.payload.id);
+      localStorage.setItem('Cart', JSON.stringify(state.cart));
+    },
+    addToFav: (state, action) => {
+      const exists = state.fav.some((item) => item.id === action.payload.id);
+      if (!exists) {
+        state.fav.push(action.payload);
+        localStorage.setItem('Fav', JSON.stringify(state.fav));
+      }
+    },
+  } 
 });
 
-// 🔑 Option A: Export `addToCart` AND alias it as `CartReducer` so both work:
-export const { productReducer , cardReducer } = productSlice.actions;
+export const { setProducts, addToCart, removeFromCart, addToFav } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -3,7 +3,7 @@ import { Rate } from 'antd';
 import { CiHeart } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
 import { useDispatch } from 'react-redux';
-import { cardReducer } from '../slicer/Product';
+import { addToCart, addToFav } from '../slicer/Product';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
@@ -11,18 +11,25 @@ const Card = ({ img1, title, np, op, dis, rating = 5, reviewCount = 88, productd
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const notify = () => toast.success('Successfully added to cart');
-
-  const handlecard = () => { 
+  const handleAddToCart = () => { 
     if (!productdtl) {
-      console.error("No product detail provided to Card");
+      console.error('No product detail provided to Card');
       return;
     }
-    dispatch(cardReducer(productdtl));
-    notify();
+    dispatch(addToCart(productdtl));
+    toast.success('Successfully added to cart');
   };
 
-  const handledtl = () => {
+  const handleAddToFav = () => {
+    if (!productdtl) {
+      console.error('No product detail provided to Card');
+      return;
+    }
+    dispatch(addToFav(productdtl));
+    toast.success('Successfully added to favorites');
+  };
+
+  const handleNavigateToDetail = () => {
     if (productdtl?.id) {
       navigate(`/productdetail/${productdtl.id}`);
     }
@@ -37,7 +44,7 @@ const Card = ({ img1, title, np, op, dis, rating = 5, reviewCount = 88, productd
           </span>
         )}
         
-        <div onClick={handledtl} className='cursor-pointer'>
+        <div onClick={handleNavigateToDetail} className='cursor-pointer'>
           <img 
             className="h-62.5 w-full object-contain p-4 mix-blend-multiply" 
             src={img1} 
@@ -48,12 +55,14 @@ const Card = ({ img1, title, np, op, dis, rating = 5, reviewCount = 88, productd
         {/* Action Icons */}
         <div className='absolute top-4 right-4 space-y-2 z-10'>
           <button 
+            onClick={handleAddToFav}
             type="button"
             className='text-xl p-1.5 bg-white rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors cursor-pointer'
           >
             <CiHeart />
           </button>
           <button 
+            onClick={handleNavigateToDetail}
             type="button"
             className='text-xl p-1.5 bg-white rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors cursor-pointer'
           >
@@ -63,7 +72,7 @@ const Card = ({ img1, title, np, op, dis, rating = 5, reviewCount = 88, productd
 
         {/* Add to Cart Button */}
         <button  
-          onClick={handlecard}
+          onClick={handleAddToCart}
           type="button"
           className='bg-black text-white absolute group-hover:bottom-0 -bottom-11 left-0 font-medium w-full py-2.25 duration-200 ease-linear cursor-pointer text-sm rounded-b-sm'
         >

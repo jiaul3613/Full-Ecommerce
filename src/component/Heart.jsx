@@ -3,14 +3,14 @@ import Container from '../component/Container'
 import CartItem from '../component/CartItem'
 import { useSelector } from 'react-redux'
 
-const CartPage = () => {
-  const data = useSelector((state) => state.shop.cart) || [];
+const Heart = () => {
+  const data = useSelector((state) => state.shop.fav) || [];
   console.log(data);
 
   return (
     <div>
         <Container>
-            <h4 className='mt-10 mb-10'>home / cart</h4>
+            <h4 className='mt-10 mb-10'>home / favourite</h4>
             <div  className='grid grid-cols-4 gap-10  shadow-md p-3 mb-2 '>
               <h4>Product</h4>
               <h4>Price</h4>
@@ -30,4 +30,4 @@ const CartPage = () => {
   )
 }
 
-export default CartPage
+export default Heart
