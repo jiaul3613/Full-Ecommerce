@@ -12,6 +12,7 @@ export const productSlice = createSlice({
     setProducts: (state, action) => {
       state.products = action.payload;
     }, 
+    
     addToCart: (state, action) => {
       const exists = state.cart.some((item) => item.id === action.payload.id);
       if (!exists) {
@@ -19,10 +20,17 @@ export const productSlice = createSlice({
         localStorage.setItem('Cart', JSON.stringify(state.cart));
       }
     },
+
     removeFromCart: (state, action) => {
       state.cart = state.cart.filter((item) => item.id !== action.payload.id);
       localStorage.setItem('Cart', JSON.stringify(state.cart));
     },
+
+    removeFromFav: (state, action) => {
+      state.fav = state.fav.filter((item) => item.id !== action.payload.id);
+      localStorage.setItem('Fav', JSON.stringify(state.fav));
+    },
+
     addToFav: (state, action) => {
       const exists = state.fav.some((item) => item.id === action.payload.id);
       if (!exists) {
@@ -33,6 +41,6 @@ export const productSlice = createSlice({
   } 
 });
 
-export const { setProducts, addToCart, removeFromCart, addToFav } = productSlice.actions;
+export const { setProducts, addToCart, removeFromCart, addToFav,removeFromFav } = productSlice.actions;
 
 export default productSlice.reducer;

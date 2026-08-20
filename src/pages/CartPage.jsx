@@ -23,6 +23,8 @@ const CartPage = () => {
                 title={item.title} 
                 price={item.price} 
                 img={item.thumbnail} 
+                productdtl={item}
+                type="cart"
               />
             ))}
         </Container>

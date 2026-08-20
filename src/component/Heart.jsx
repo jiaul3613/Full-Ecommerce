@@ -23,6 +23,8 @@ const Heart = () => {
                 title={item.title} 
                 price={item.price} 
                 img={item.thumbnail} 
+                productdtl={item}
+                type='fav'
               />
             ))}
         </Container>
